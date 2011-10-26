@@ -48,7 +48,6 @@ abstract class BaseBuilder implements BuilderInterface
         'var_export',
         'is_numeric',
         'ucfirst',
-        '\Doctrine\Common\Util\Inflector::classify',
         'substr',
     );
 
