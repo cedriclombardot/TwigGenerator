@@ -218,6 +218,15 @@ abstract class BaseBuilder implements BuilderInterface
 
     /**
      * (non-PHPdoc)
+     * @see BuilderInterface::setVariable()
+     */
+    public function setVariable($key, $value)
+    {
+        $this->variables->set($key, $value);
+    }
+
+    /**
+     * (non-PHPdoc)
      * @see BuilderInterface::getVariables()
      */
     public function getVariables()
