@@ -1,12 +1,12 @@
 # Quick Start
 
-To start to generate your classes, you need to create a builder and 1 or more templates.
+To start to generate PHP classes, you need to create a builder, and one or more templates.
 
-## The builder
+## Creating a Builder class
 
-It extends of `TwigGenerator\Builder\BaseBuilder` or implement the `TwigGenerator\Builder\BuilderInterface`
+First, create a class extending `TwigGenerator\Builder\BaseBuilder` - no need to add methods for now.
 
-````
+```php
 <?php
 
 namespace MyProject\Builder;
@@ -17,73 +17,92 @@ class MyBuilder extends BaseBuilder
 {
 
 }
-````
+```
 
-## A template
+**Tip**: Alternatively, a builder can implement the `TwigGenerator\Builder\BuilderInterface` if it has to extend a custom class.
 
-You have to create twig templates. For eg :
+## Creating Twig Templates
 
-templates/MyBuilder.php.twig
+Next, create a couple twig templates under the `templates/` directory. Usually, you need at least one template for the main structure, plus one template per feature added to the class. 
 
-````
-{% extends "_base/common.php.twig" %}
+Here is an example main template (or layout) for creating a custom PHP class (to be stored in `templates/_base/common.php.twig`):
 
-{% block functions %}
-public function tellMeHello()
-{
-	echo "Hello world";
-}
-{% endblock %}
-````
-
-And allways for sample :
-
-templates/_base/common.php.twig
-
-````
-{{ namespace is defined ? "namespace " ~ namespace : "" }}
+```php
+<?php
+{{ namespace is defined ? "namespace " ~ namespace ~ ";" : "" }}
 
 class {{ className }} {{ extends is defined ? "extends " ~ extends : "" }}
 {
-	{% block functions %}
-	{% endblock %}
+{% block functions %}
+{% endblock %}
 }
-````
+```
 
-### And now generate
+And now, an example for adding a custom method (to be stored in `templates/MyBuilder.php.twig`):
 
-````
+```
+{% extends "_base/common.php.twig" %}
+
+{% block functions %}
+	public function tellMeHello()
+	{
+		echo "Hello world";
+	}
+{% endblock %}
+```
+
+### Generating the code
+
+And now, use `TwigGenerator\Builder\Generator` to generate the result. For instance:
+
+```php
 <?php
+// initialize the autoload
+require_once '/path/to/TwigGenerator/autoload.php';
+// alternatively, use your favorite PSR-0 autoloader configured with TwigGenerator, Symfony and Twig
 
-// Create the generator
+
+// create a generator
 $generator = new TwigGenerator\Builder\Generator();
 $generator->setTemplateDirs(array(
-	__DIR__.'/tempates',
+	__DIR__.'/templates',
 ));
 
-// Allways regenerate -> no cache
+// allways regenerate classes even if they exist -> no cache
 $generator->setMustOverwriteIfExists(true);
 
-// Set common variables
+// set common variables
 $generator->setVariables(array(
 	'namespace' => 'MyProject\Generated',
 ));
 
-// Init the builder
+// initialize a builder
 $builder = new MyProject\Builder\MyBuilder();
 $builder->setOutputName('MyBuilder.php');
 
-// Add the builder to the generator to give the generator configuration 
+// add the builder to the generator
 $generator->addBuilder($builder);
 
 // You can add other builders here
 
-// Add specific config for my builder
-$builder->getVariables()->set('className', 'MyBuilder');
+// add specific configuration for my builder
+$builder->setVariable('className', 'MyBuilder');
 
 // Run generation for al builders
 $generator->writeOnDisk(__DIR__.'/Generated');
+```
 
-````
+The file will be generated in `MyProject\Generated\MyBuilder.php`, as follows:
 
-The file will be generated in `MyProject\Generated\MyBuilder.php`
+```php
+<?php
+namespace MyProject\Generated;
+
+class MyBuilder 
+{
+	public function tellMeHello()
+	{
+		echo "Hello world";
+	}
+}
+```
