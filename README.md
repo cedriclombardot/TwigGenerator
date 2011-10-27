@@ -1,4 +1,4 @@
-# TwigGenerator
+# TwigGenerator ![project status](http://stillmaintained.com/cedriclombardot/TwigGenerator.png)#
 
 It's a php generator based on [Twig](https://github.com/fabpot/Twig) Template engine to help you to generate php files
 using builders, templates and giving variables
