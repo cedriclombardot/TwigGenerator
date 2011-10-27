@@ -121,6 +121,12 @@ interface BuilderInterface
     function getVariable($path, $default = null, $deep = false);
 
     /**
+     * @param string  $key    The key
+     * @param mixed   $value The value
+     */
+    function setVariable($key, $value);
+
+    /**
      * Write the file on the disk
      * @param string $outputDirectory the $outputDirectory
      */
