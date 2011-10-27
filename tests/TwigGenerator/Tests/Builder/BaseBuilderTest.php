@@ -43,6 +43,18 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('bazz', $builder->getVariable('foo[bar]','default', true));
     }
 
+    public function testSetVariable()
+    {
+        $builder = new DemoBuilder();
+        $builder->setVariables(array('foo' => 'bar'));
+
+        $builder->setVariable('foo', 'demo');
+        $this->assertEquals('demo', $builder->getVariable('foo'), 'setVariable overwrite the default variables setted');
+
+        $builder->setVariable('add', 'bar');
+        $this->assertEquals('bar', $builder->getVariable('add'), 'setVariable can also add a variable');
+    }
+
     public function testHasVariable()
     {
         $builder = new DemoBuilder();
