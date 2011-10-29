@@ -4,8 +4,6 @@ namespace TwigGenerator\Tests\Builder;
 
 use TwigGenerator\Tests\Builder\Fixtures\Builder\DemoBuilder;
 
-use Symfony\Component\HttpFoundation\ParameterBag;
-
 class BaseBuilderTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetSimpleClassName()
@@ -27,9 +25,6 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
         $builder = new DemoBuilder();
         $builder->setVariables(array('foo' => 'bar'));
         $this->assertEquals(array('foo' => 'bar'), $builder->getVariables(), 'setVariables accept an array');
-
-        $builder->setVariables(new ParameterBag(array('foo' => 'bar')));
-        $this->assertEquals(array('foo' => 'bar'), $builder->getVariables(), 'setVariables accept a ParameterBag');
     }
 
     public function testGetVariable()
@@ -38,9 +33,6 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
         $builder->setVariables(array('foo' => 'bar'));
         $this->assertEquals('bar', $builder->getVariable('foo','default'));
         $this->assertEquals('default', $builder->getVariable('nonexistant','default'));
-
-        $builder->setVariables(array('foo' => array('bar' =>'bazz')));
-        $this->assertEquals('bazz', $builder->getVariable('foo[bar]','default', true));
     }
 
     public function testSetVariable()

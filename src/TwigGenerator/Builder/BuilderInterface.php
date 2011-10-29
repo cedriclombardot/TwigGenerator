@@ -97,7 +97,7 @@ interface BuilderInterface
     function setMustOverwriteIfExists($status = true);
 
     /**
-     * @param array|ParameterBar $variables
+     * @param array $variables
      */
     function setVariables($variables);
 
@@ -114,11 +114,10 @@ interface BuilderInterface
     /**
      * @param string  $path    The key
      * @param mixed   $default The default value
-     * @param boolean $deep
      *
-     * @return mixed the variable of the parameter bag
+     * @return mixed the variable
      */
-    function getVariable($path, $default = null, $deep = false);
+    function getVariable($path, $default = null);
 
     /**
      * @param string  $key    The key

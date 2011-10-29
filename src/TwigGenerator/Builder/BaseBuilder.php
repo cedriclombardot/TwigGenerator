@@ -9,8 +9,6 @@
 
 namespace TwigGenerator\Builder;
 
-use Symfony\Component\HttpFoundation\ParameterBag;
-
 abstract class BaseBuilder implements BuilderInterface
 {
     const TWIG_EXTENSION = '.php.twig';
@@ -51,7 +49,7 @@ abstract class BaseBuilder implements BuilderInterface
         'substr',
     );
 
-    protected $variables;
+    protected $variables = array();
 
      /**
      * @var array
@@ -67,7 +65,6 @@ abstract class BaseBuilder implements BuilderInterface
     {
         $this->templateDirectories = $this->getDefaultTemplateDirs();
         $this->templateName = $this->getDefaultTemplateName();
-        $this->variables = new ParameterBag(array());
     }
 
     /**
@@ -209,10 +206,6 @@ abstract class BaseBuilder implements BuilderInterface
      */
     public function setVariables($variables)
     {
-        if (is_array($variables)) {
-            $variables = new ParameterBag($variables);
-        }
-
         $this->variables = $variables;
     }
 
@@ -222,7 +215,7 @@ abstract class BaseBuilder implements BuilderInterface
      */
     public function setVariable($key, $value)
     {
-        $this->variables->set($key, $value);
+        $this->variables[$key] = $value;
     }
 
     /**
@@ -231,7 +224,7 @@ abstract class BaseBuilder implements BuilderInterface
      */
     public function getVariables()
     {
-        return $this->variables->all();
+        return $this->variables;
     }
 
     /**
@@ -240,16 +233,16 @@ abstract class BaseBuilder implements BuilderInterface
      */
     public function hasVariable($key)
     {
-        return $this->variables->has($key);
+        return isset($this->variables[$key]);
     }
 
     /**
      * (non-PHPdoc)
      * @see BuilderInterface::getVariable()
      */
-    public function getVariable($key, $default = null, $deep = false)
+    public function getVariable($key, $default = null)
     {
-        return $this->variables->get($key, $default, $deep);
+        return $this->hasVariable($key) ? $this->variables[$key] : $default;
     }
 
     /**
