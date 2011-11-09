@@ -36,7 +36,7 @@ class MyBuilder extends BaseBuilder
 
 ### Creating Twig Templates
 
-Next, create a couple twig templates under the `templates/` directory. Usually, you need at least one template for the main structure, plus one template per feature added to the class. 
+Next, create a couple twig templates under the `templates/` directory. Usually, you need at least one template for the main structure, plus one template per feature added to the class.
 
 Here is an example main template (or layout) for creating a custom PHP class (to be stored in `templates/_base/common.php.twig`):
 
@@ -71,7 +71,7 @@ Use a `TwigGenerator\Builder\Generator` instance to generate the result. For ins
 ```php
 <?php
 // initialize the autoload
-require_once '/path/to/TwigGenerator/autoload.php';
+require_once '/path/to/TwigGenerator/src/autoload.php';
 // alternatively, use your favorite PSR-0 autoloader configured with TwigGenerator, Symfony and Twig
 
 
@@ -111,7 +111,7 @@ The file will be generated in `MyProject\Generated\MyBuilder.php`, as follows:
 <?php
 namespace MyProject\Generated;
 
-class MyBuilder 
+class MyBuilder
 {
 	public function tellMeHello()
 	{
@@ -123,3 +123,14 @@ class MyBuilder
 ## Other Examples
 
 You can see some basic code generation samples in the tests, and on some GitHub repositories like [fzaninotto/Doctrine2ActiveRecord](https://github.com/fzaninotto/Doctrine2ActiveRecord), or [cedriclombardot/AdmingeneratorGeneratorBundle](https://github.com/cedriclombardot/AdmingeneratorGeneratorBundle).
+
+
+## Unit Tests
+
+To run the bundled unit tests, you'll need to add `ClassLoader`:
+
+    git clone git://github.com/symfony/ClassLoader.git vendor/Symfony/Component/ClassLoader
+
+Then, just run:
+
+    phpunit
