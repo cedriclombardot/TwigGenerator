@@ -1,144 +1,187 @@
 <?php
 
+/**
+ * This file is part of the TwigGenerator package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @license    MIT License
+ */
+
 namespace TwigGenerator\Builder;
 
-use Symfony\Component\HttpFoundation\ParameterBag;
-
 /**
- * Inteface to define structure of the builders
+ * This interface defines the structure of builders.
  *
- * @author cedric Lombardot
- *
+ * @author Cédric Lombardot
  */
 interface BuilderInterface
 {
     /**
-     * Constructor
-     */
-    function __construct();
-
-    /**
-     * set generator element
-     * @param Generator $generator
+     * Set the generator.
+     *
+     * @param \TwigGenerator\Builder\Generator $generator   A generator.
      */
     function setGenerator(Generator $generator);
 
     /**
-     * Return generator element
-     * @return Generator $generator
+     * Return the generator.
+     *
+     * @return \TwigGenerator\Builder\Generator    The generator.
      */
     function getGenerator();
 
     /**
-     * add $templateDir element
-     * @param string $templateDir
+     * Add a template directory.
+     *
+     * @param string $templateDir   A template directory.
      */
     function addTemplateDir($templateDir);
 
     /**
-     * set a list of $templateDir elements
+     * Set a list of template directories.
+     *
      * @param array $templateDirs
      */
     function setTemplateDirs(array $templateDirs);
 
     /**
-     * @return array $templateDirs
+     * Return an array of template directories.
+     *
+     * @return array    An array of template directories.
      */
     function getTemplateDirs();
 
     /**
-     * Find all default directories
-     * @return array
+     * Return all default template directories.
+     *
+     * @return array    An array of default directories.
      */
     function getDefaultTemplateDirs();
 
     /**
-     * Set the $templateName
-     * @param string $templateName
+     * Set the template name.
+     *
+     * @param string $templateName  A template name.
      */
     function setTemplateName($templateName);
 
     /**
-     * @return string the template name
+     * Return the template name.
+     *
+     * @return string   The template name.
      */
     function getTemplateName();
 
     /**
-     * @return string the default template name
+     * Return the default template name.
+     *
+     * @return string   The default template name.
      */
     function getDefaultTemplateName();
 
     /**
-     * @param string the class name
-     * @return string the class name without namespace
+     * Return the simple classname.
+     *
+     * @param string    A classname.
+     *
+     * @return string   The short classname.
      */
     function getSimpleClassName($class = null);
 
     /**
-     * The output filename
-     * @param string $outputName
+     * Set the output filename.
+     *
+     * @param string $outputName    The output filename.
      */
     function setOutputName($outputName);
 
     /**
-     * @return string the output name
+     * Return the output name.
+     *
+     * @return string   The output name.
      */
     function getOutputName();
 
     /**
-     * @return boolean
+     * Return whether the builder must overwrite the file or not.
+     *
+     * @return Boolean  true if the builder must overwrite the file, false otherwise.
      */
     function mustOverwriteIfExists();
 
     /**
-     * Change overwrite status
-     * @param boolean $status
+     * Change the overwrite status.
+     *
+     * @param Boolean $status   The status.
      */
     function setMustOverwriteIfExists($status = true);
 
     /**
-     * @param array $variables
+     * Set an array of variables.
+     *
+     * @param array $variables  An array of variables.
      */
-    function setVariables($variables);
+    function setVariables(array $variables);
 
     /**
-     * @return array
+     * Return an array of variables.
+     *
+     * @return array    An array of variables.
      */
     function getVariables();
 
     /**
-     * @return Boolean
+     * Return whether the builder contains a variable or not.
+     *
+     * @return Boolean  true if the builder contains the variable, false otherwise.
      */
     function hasVariable($key);
 
     /**
-     * @param string  $path    The key
-     * @param mixed   $default The default value
+     * Get a variable identified by its key.
      *
-     * @return mixed the variable
+     * @param string $path      The key.
+     * @param mixed $default    The default value.
+     *
+     * @return mixed    The variable.
      */
     function getVariable($path, $default = null);
 
     /**
-     * @param string  $key    The key
-     * @param mixed   $value The value
+     * Set a new key/value.
+     *
+     * @param string $key   The key.
+     * @param mixed $value  The value.
      */
     function setVariable($key, $value);
 
     /**
-     * Write the file on the disk
-     * @param string $outputDirectory the $outputDirectory
+     * Write files to disk.
+     *
+     * @param string $outputDirectory   The output directory.
      */
     function writeOnDisk($outputDirectory);
 
     /**
-     * @return string the parsed code to insert into the file
+     * Return the parsed code to insert into the file.
+     *
+     * @return string   The parsed code to insert into the file.
      */
     function getCode();
 
     /**
-     * @param \Twig_Environment $twig
+     * Add Twig filters from a given Twig environment.
+     *
+     * @param \Twig_Environment $twig   A Twig environment.
      */
     function addTwigFilters(\Twig_Environment $twig);
 
+    /**
+     * Add Twig extensions.
+     *
+     * @param \Twig_Environment $twig       A Twig environment.
+     * @param \Twig_LoaderInterface $loader A Twig loader.
+     */
+    function addTwigExtensions(\Twig_Environment $twig, \Twig_LoaderInterface $loader);
 }

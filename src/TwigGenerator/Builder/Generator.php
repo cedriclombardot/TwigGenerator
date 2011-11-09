@@ -1,36 +1,56 @@
 <?php
 
+/**
+ * This file is part of the TwigGenerator package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @license    MIT License
+ */
+
 namespace TwigGenerator\Builder;
 
+/**
+ * @author Cédric Lombardot
+ */
 class Generator
 {
+    /**
+     */
     const TEMP_DIR_PREFIX = 'TwigGenerator';
 
     /**
-     * @var string the temporary dir
+     * @var string  The temporary dir.
      */
     protected $tempDir;
 
     /**
-     * @var array List of builders
+     * @var array   List of builders.
      */
     protected $builders = array();
 
+    /**
+     * @var Boolean
+     */
     protected $mustOverwriteIfExists = false;
 
+    /**
+     * @var array
+     */
     protected $templateDirectories = array();
 
     /**
-     * @var array variables to give to the builder when you add one
+     * @var array   Variables to pass to the builder.
      */
     protected $variables = array();
 
     /**
-     * Init a new generator and automatically define the base of tempDir
+     * Init a new generator and automatically define the base of temp directory.
      */
     public function __construct()
     {
         $this->tempDir = realpath(sys_get_temp_dir()).DIRECTORY_SEPARATOR.self::TEMP_DIR_PREFIX;
+
         if (!is_dir($this->tempDir)) {
             mkdir($this->tempDir, 0777, true);
         }
@@ -41,16 +61,13 @@ class Generator
         $this->mustOverwriteIfExists = $status;
     }
 
-    /**
-     * (non-PHPdoc)
-     */
     public function setTemplateDirs(array $templateDirs)
     {
         $this->templateDirectories = $templateDirs;
     }
 
     /**
-     * Ensure to remove tempDir
+     * Ensure to remove the temp directory.
      */
     public function __destruct()
     {
@@ -60,7 +77,7 @@ class Generator
     }
 
     /**
-     * @return string the $tempDir
+     * @return string   The temporary directory.
      */
     public function getTempDir()
     {
@@ -68,7 +85,7 @@ class Generator
     }
 
     /**
-     * @return array the list of builders
+     * @return array    The list of builders.
      */
     public function getBuilders()
     {
@@ -76,10 +93,11 @@ class Generator
     }
 
     /**
-     * Add a builder
-     * @param BuilderInterface $builder
+     * Add a builder.
      *
-     * @return BuilderInterface $builder The builder
+     * @param \TwigGenerator\Builder\BuilderInterface $builder  A builder.
+     *
+     * @return \TwigGenerator\Builder\BuilderInterface  The builder
      */
     public function addBuilder(BuilderInterface $builder)
     {
@@ -94,8 +112,9 @@ class Generator
     }
 
     /**
-     * Give an array of variables to give to the builders
-     * @param array $variables
+     * Add an array of variables to pass to builders.
+     *
+     * @param array $variables  A set of variables.
      */
     public function setVariables(array $variables = array())
     {
@@ -103,21 +122,21 @@ class Generator
     }
 
     /**
-     * Generated and write classes to disk
+     * Generate and write classes to disk.
      *
-     * @param string $outputDirectory
-     * @param array  $variables
+     * @param string $outputDirectory   An output directory.
      */
     public function writeOnDisk($outputDirectory)
     {
-        foreach ($this->builders as $builder) {
+        foreach ($this->getBuilders() as $builder) {
             $builder->writeOnDisk($outputDirectory);
         }
     }
 
     /**
-     * Remove a directory
-     * @param string $target
+     * Remove a directory.
+     *
+     * @param string $target    A directory.
      */
     private function removeDir($target)
     {
@@ -136,5 +155,4 @@ class Generator
         closedir($fp);
         rmdir($target);
     }
-
 }

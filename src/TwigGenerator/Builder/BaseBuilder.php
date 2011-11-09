@@ -1,25 +1,32 @@
 <?php
 
 /**
- * Inteface to define structure of the builders
+ * This file is part of the TwigGenerator package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * @author cedric Lombardot
- *
+ * @license    MIT License
  */
 
 namespace TwigGenerator\Builder;
 
+/**
+ * @author Cédric Lombardot
+ */
 abstract class BaseBuilder implements BuilderInterface
 {
+    /**
+     * Default Twig file extension.
+     */
     const TWIG_EXTENSION = '.php.twig';
 
     /**
-     * @var Generator the generator element
+     * @var \TwigGenerator\Builder\Generator    The generator.
      */
     protected $generator;
 
     /**
-     * @var array a list of templates directories
+     * @var array   A list of template directories.
      */
     protected $templateDirectories = array();
 
@@ -34,7 +41,7 @@ abstract class BaseBuilder implements BuilderInterface
     protected $outputName;
 
     /**
-     * @var boolean
+     * @var Boolean
      */
     protected $mustOverwriteIfExists = false;
 
@@ -49,17 +56,19 @@ abstract class BaseBuilder implements BuilderInterface
         'substr',
     );
 
+    /**
+     * @var array
+     */
     protected $variables = array();
 
-     /**
+    /**
      * @var array
      */
     protected $twigExtensions = array(
     );
 
     /**
-     * (non-PHPdoc)
-     * @see BuilderInterface::__construct()
+     * Constructor
      */
     public function __construct()
     {
@@ -68,8 +77,7 @@ abstract class BaseBuilder implements BuilderInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see BuilderInterface::setGenerator()
+     * {@inheritDoc}
      */
     public function setGenerator(Generator $generator)
     {
@@ -77,8 +85,7 @@ abstract class BaseBuilder implements BuilderInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see BuilderInterface::getGenerator()
+     * {@inheritDoc}
      */
     public function getGenerator()
     {
@@ -86,8 +93,7 @@ abstract class BaseBuilder implements BuilderInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see BuilderInterface::addTemplateDir()
+     * {@inheritDoc}
      */
     public function addTemplateDir($templateDir)
     {
@@ -95,8 +101,7 @@ abstract class BaseBuilder implements BuilderInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see BuilderInterface::setTemplateDirs()
+     * {@inheritDoc}
      */
     public function setTemplateDirs(array $templateDirs)
     {
@@ -104,8 +109,7 @@ abstract class BaseBuilder implements BuilderInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see BuilderInterface::getTemplateDirs()
+     * {@inheritDoc}
      */
     public function getTemplateDirs()
     {
@@ -113,8 +117,7 @@ abstract class BaseBuilder implements BuilderInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see BuilderInterface::getDefaultTemplateDirs()
+     * {@inheritDoc}
      */
     public function getDefaultTemplateDirs()
     {
@@ -122,8 +125,7 @@ abstract class BaseBuilder implements BuilderInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see BuilderInterface::setTemplateName()
+     * {@inheritDoc}
      */
     public function setTemplateName($templateName)
     {
@@ -131,8 +133,7 @@ abstract class BaseBuilder implements BuilderInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see BuilderInterface::getTemplateName()
+     * {@inheritDoc}
      */
     public function getTemplateName()
     {
@@ -140,17 +141,15 @@ abstract class BaseBuilder implements BuilderInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see BuilderInterface::getDefaultTemplateName()
+     * {@inheritDoc}
      */
     public function getDefaultTemplateName()
     {
-        return $this->getSimpleClassName(). self::TWIG_EXTENSION;
+        return $this->getSimpleClassName() . self::TWIG_EXTENSION;
     }
 
     /**
-     * (non-PHPdoc)
-     * @see BuilderInterface::getSimpleClassName()
+     * {@inheritDoc}
      */
     public function getSimpleClassName($class = null)
     {
@@ -165,8 +164,7 @@ abstract class BaseBuilder implements BuilderInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see BuilderInterface::setOutputName()
+     * {@inheritDoc}
      */
     public function setOutputName($outputName)
     {
@@ -174,8 +172,7 @@ abstract class BaseBuilder implements BuilderInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see BuilderInterface::getOutputName()
+     * {@inheritDoc}
      */
     public function getOutputName()
     {
@@ -183,8 +180,7 @@ abstract class BaseBuilder implements BuilderInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see BuilderInterface::mustOverwriteIfExists()
+     * {@inheritDoc}
      */
     public function mustOverwriteIfExists()
     {
@@ -192,8 +188,7 @@ abstract class BaseBuilder implements BuilderInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see BuilderInterface::setMustOverwriteIfExists()
+     * {@inheritDoc}
      */
     public function setMustOverwriteIfExists($status = true)
     {
@@ -201,17 +196,15 @@ abstract class BaseBuilder implements BuilderInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see BuilderInterface::setVariables()
+     * {@inheritDoc}
      */
-    public function setVariables($variables)
+    public function setVariables(array $variables)
     {
         $this->variables = $variables;
     }
 
     /**
-     * (non-PHPdoc)
-     * @see BuilderInterface::setVariable()
+     * {@inheritDoc}
      */
     public function setVariable($key, $value)
     {
@@ -219,8 +212,7 @@ abstract class BaseBuilder implements BuilderInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see BuilderInterface::getVariables()
+     * {@inheritDoc}
      */
     public function getVariables()
     {
@@ -228,8 +220,7 @@ abstract class BaseBuilder implements BuilderInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see BuilderInterface::hasVariable()
+     * {@inheritDoc}
      */
     public function hasVariable($key)
     {
@@ -237,8 +228,7 @@ abstract class BaseBuilder implements BuilderInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see BuilderInterface::getVariable()
+     * {@inheritDoc}
      */
     public function getVariable($key, $default = null)
     {
@@ -246,13 +236,12 @@ abstract class BaseBuilder implements BuilderInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see BuilderInterface::writeOnDisk()
+     * {@inheritDoc}
      */
     public function writeOnDisk($outputDirectory)
     {
         $path = $outputDirectory . DIRECTORY_SEPARATOR . $this->getOutputName();
-        $dir = dirname($path);
+        $dir  = dirname($path);
 
         if (!is_dir($dir)) {
             mkdir($dir, 0777, true);
@@ -264,8 +253,7 @@ abstract class BaseBuilder implements BuilderInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see BuilderInterface::getCode()
+     * {@inheritDoc}
      */
     public function getCode()
     {
@@ -288,8 +276,7 @@ abstract class BaseBuilder implements BuilderInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see BuilderInterface::addTwigFilters()
+     * {@inheritDoc}
      */
     public function addTwigFilters(\Twig_Environment $twig)
     {
@@ -304,8 +291,7 @@ abstract class BaseBuilder implements BuilderInterface
     }
 
     /**
-     * (non-PHPdoc)
-     * @see BuilderInterface::addTwigExtensions()
+     * {@inheritDoc}
      */
     public function addTwigExtensions(\Twig_Environment $twig, \Twig_LoaderInterface $loader)
     {
