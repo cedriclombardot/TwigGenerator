@@ -1,5 +1,5 @@
 {
-    "name": "cedriclombardot/twiggenerator",
+    "name": "cedriclombardot/twig-generator",
     "type": "library",
     "description": "A generator for PHP code based on Twig template engine",
     "keywords": ["twig", "generator", "code generation"],
