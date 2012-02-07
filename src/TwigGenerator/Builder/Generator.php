@@ -77,6 +77,14 @@ class Generator
     }
 
     /**
+     * @param string The temporary directory path
+     */
+    public function setTempDir($tempDir)
+    {
+        $this->tempDir = $tempDir;
+    }
+
+    /**
      * @return string   The temporary directory.
      */
     public function getTempDir()
