@@ -45,6 +45,11 @@ class Generator
     protected $variables = array();
 
     /**
+     * @var boolean Activate remove temp dir after generation
+     */
+    protected $autoRemoveTempDir = true;
+
+    /**
      * Init a new generator and automatically define the base of temp directory.
      */
     public function __construct()
@@ -54,6 +59,11 @@ class Generator
         if (!is_dir($this->tempDir)) {
             mkdir($this->tempDir, 0777, true);
         }
+    }
+
+    public function setAutoRemoveTempDir($autoRemoveTempDir = true)
+    {
+        $this->autoRemoveTempDir = $autoRemoveTempDir;
     }
 
     public function setMustOverwriteIfExists($status = true)
@@ -71,7 +81,7 @@ class Generator
      */
     public function __destruct()
     {
-        if ($this->tempDir && is_dir($this->tempDir)) {
+        if ($this->tempDir && is_dir($this->tempDir) && $this->autoRemoveTempDir) {
             $this->removeDir($this->tempDir);
         }
     }
