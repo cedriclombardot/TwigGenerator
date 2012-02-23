@@ -1,7 +1,6 @@
 language: php
 php: 5.3
 before_script:
-  - git clone https://github.com/symfony/ClassLoader.git vendor/Symfony/Component/ClassLoader
   - git submodule update --init
 script: phpunit
 notifications:
