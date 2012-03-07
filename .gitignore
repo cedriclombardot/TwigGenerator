@@ -3,3 +3,8 @@
 .project
 .buildpath
 
+# Composer
+composer.lock
+composer.phar
+
+vendor

@@ -9,7 +9,8 @@ Checkout this GitHub repository and the two submodules (Twig and Symfony ClassLo
 ```
 git clone https://github.com/cedriclombardot/TwigGenerator.git
 cd TwigGenerator
-git submodule update --init --recursive
+wget -nc http://getcomposer.org/composer.phar
+php composer install
 ```
 
 ## Usage

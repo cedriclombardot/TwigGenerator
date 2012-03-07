@@ -1,7 +1,9 @@
 <?php
 
-if (file_exists($file = __DIR__.'/../autoload.php')) {
-    require_once $file;
-} elseif (file_exists($file = __DIR__.'/../autoload.php.dist')) {
-    require_once $file;
+if ((!$loader = @include __DIR__.'/../vendor/.composer/autoload.php')) {
+    die('You must set up the project dependencies, run the following commands:'.PHP_EOL.
+        'curl -s http://getcomposer.org/installer | php'.PHP_EOL.
+        'php composer.phar install'.PHP_EOL);
 }
+
+$loader->add('TwigGenerator\\Tests', 'tests');

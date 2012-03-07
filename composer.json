@@ -15,7 +15,8 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0"
+        "php": ">=5.3.0",
+        "twig/twig": "dev-master"
     },
     "autoload": {
         "psr-0": { "TwigGenerator": "src/" }
