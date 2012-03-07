@@ -128,10 +128,6 @@ You can see some basic code generation samples in the tests, and on some GitHub 
 
 ## Unit Tests
 
-To run the bundled unit tests, you'll need to add `ClassLoader`:
-
-    git clone git://github.com/symfony/ClassLoader.git vendor/Symfony/Component/ClassLoader
-
 Then, just run:
 
     phpunit
