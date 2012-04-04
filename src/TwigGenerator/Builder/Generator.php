@@ -51,10 +51,16 @@ class Generator
 
     /**
      * Init a new generator and automatically define the base of temp directory.
+     * 
+     * @param string $baseTempDir    Existing base directory for temporary template files
      */
-    public function __construct()
+    public function __construct($baseTempDir = null)
     {
-        $this->tempDir = realpath(sys_get_temp_dir()).DIRECTORY_SEPARATOR.self::TEMP_DIR_PREFIX;
+        if (null === $baseTempDir) {
+            $baseTempDir = sys_get_temp_dir();
+        }
+
+        $this->tempDir = realpath($baseTempDir).DIRECTORY_SEPARATOR.self::TEMP_DIR_PREFIX;
 
         if (!is_dir($this->tempDir)) {
             mkdir($this->tempDir, 0777, true);
