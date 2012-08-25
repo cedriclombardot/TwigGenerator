@@ -128,7 +128,7 @@ class Generator
         $builder->setGenerator($this);
         $builder->setTemplateDirs($this->templateDirectories);
         $builder->setMustOverwriteIfExists($this->mustOverwriteIfExists);
-        $builder->setVariables($this->variables);
+        $builder->setVariables(array_merge($this->variables, $builder->getVariables()));   
 
         $this->builders[$builder->getSimpleClassName()] = $builder;
 
