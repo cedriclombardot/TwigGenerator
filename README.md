@@ -75,6 +75,12 @@ Use a `TwigGenerator\Builder\Generator` instance to generate the result. For ins
 require_once '/path/to/TwigGenerator/src/autoload.php';
 // alternatively, use your favorite PSR-0 autoloader configured with TwigGenerator, Symfony and Twig
 
+// initialize a builder
+$builder = new MyProject\Builder\MyBuilder();
+$builder->setOutputName('MyBuilder.php');
+
+// add specific configuration for my builder
+$builder->setVariable('className', 'MyBuilder');
 
 // create a generator
 $generator = new TwigGenerator\Builder\Generator();
@@ -85,22 +91,15 @@ $generator->setTemplateDirs(array(
 // allways regenerate classes even if they exist -> no cache
 $generator->setMustOverwriteIfExists(true);
 
-// initialize a builder
-$builder = new MyProject\Builder\MyBuilder();
-$builder->setOutputName('MyBuilder.php');
+// set common variables
+$generator->setVariables(array(
+	'namespace' => 'MyProject\Generated',
+));
 
 // add the builder to the generator
 $generator->addBuilder($builder);
 
 // You can add other builders here
-
-// add specific configuration for my builder
-$builder->setVariable('className', 'MyBuilder');
-
-// set common variables
-$generator->setVariables(array(
-	'namespace' => 'MyProject\Generated',
-));
 
 // Run generation for all builders
 $generator->writeOnDisk(__DIR__.'/Generated');
