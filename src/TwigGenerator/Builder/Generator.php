@@ -164,7 +164,10 @@ class Generator
      */
     private function removeDir($target)
     {
-        $fp = opendir($target);
+        $fp = @opendir($target);
+        if ($fp === false) {
+            return;
+        }
         while (false !== $file = readdir($fp)) {
             if (in_array($file, array('.', '..'))) {
                 continue;
@@ -173,10 +176,10 @@ class Generator
             if (is_dir($target.'/'.$file)) {
                 self::removeDir($target.'/'.$file);
             } else {
-                unlink($target.'/'.$file);
+                @unlink($target.'/'.$file);
             }
         }
         closedir($fp);
-        rmdir($target);
+        @rmdir($target);
     }
 }
