@@ -91,6 +91,49 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
         $builder->writeOnDisk(sys_get_temp_dir());
         $this->assertEquals('Hello cedric !', file_get_contents(sys_get_temp_dir() . '/test.php'), 'If i change variables on a non existant files code is generated');
     }
+    
+    public function testSeal()
+    {
+        $builder = new DemoBuilder();
+        
+        // mustOverwriteIfExists
+        $builder->setMustOverwriteIfExists(true);
+        
+        $this->assertEquals(true, $builder->mustOverwriteIfExists());
+        
+        $builder->sealMustOverwriteIfExists();
+        $builder->setMustOverwriteIfExists(false);
+        
+        $this->assertEquals(true, $builder->mustOverwriteIfExists());
+        
+        $builder->unsealMustOverwriteIfExists();
+        
+        $builder->setMustOverwriteIfExists(false);
+        $this->assertEquals(false, $builder->mustOverwriteIfExists());
+        
+        // templateDirs
+        $builder->setTemplateDirs(array('abc'));
+        
+        $this->assertEquals(array('abc'), $builder->getTemplateDirs());
+        
+        $builder->sealTemplateDirs();
+        $builder->setTemplateDirs(array('xyz'));
+        
+        $this->assertEquals(array('abc'), $builder->getTemplateDirs());
+        
+        $builder->addTemplateDir('def');
+        
+        $this->assertEquals(array('abc'), $builder->getTemplateDirs());
+        
+        $builder->unsealTemplateDirs();
+        $builder->setTemplateDirs(array('xyz'));
+        
+        $this->assertEquals(array('xyz'), $builder->getTemplateDirs());
+        
+        $builder->addTemplateDir('def');
+        
+        $this->assertEquals(array('xyz', 'def' => 'def'), $builder->getTemplateDirs());
+    }
 
     protected function initBuilder()
     {
