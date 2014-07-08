@@ -4,7 +4,7 @@ TwigGenerator is a PHP code generator based on the [Twig](https://github.com/fab
 
 ## Installation
 
-Checkout this GitHub repository and the two submodules (Twig and Symfony ClassLoader):
+Checkout this GitHub repository and setup the composer dependencies (Twig and Symfony ClassLoader):
 
 ```
 git clone https://github.com/cedriclombardot/TwigGenerator.git
