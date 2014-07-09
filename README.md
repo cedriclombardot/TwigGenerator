@@ -1,10 +1,10 @@
-# TwigGenerator ![project status](http://stillmaintained.com/cedriclombardot/TwigGenerator.png)# ![build status](https://secure.travis-ci.org/cedriclombardot/TwigGenerator.png)#
+# TwigGenerator ![project status](http://stillmaintained.com/cedriclombardot/TwigGenerator.png) ![build status](https://secure.travis-ci.org/cedriclombardot/TwigGenerator.png)#
 
 TwigGenerator is a PHP code generator based on the [Twig](https://github.com/fabpot/Twig) template engine. It leverages the power of Twig templates to simplify the generation of PHP code, to make it more extensible, and more readable.
 
 ## Installation
 
-Checkout this GitHub repository and the two submodules (Twig and Symfony ClassLoader):
+Checkout this GitHub repository and setup the composer dependencies (Twig and Symfony ClassLoader):
 
 ```
 git clone https://github.com/cedriclombardot/TwigGenerator.git
