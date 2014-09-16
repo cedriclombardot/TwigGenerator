@@ -28,13 +28,18 @@ abstract class BaseBuilder implements BuilderInterface
     /**
      * @var array   A list of template directories.
      */
-    protected $templateDirectories = array();
+    private $templateDirectories = array();
 
+    /**
+     * @var boolean
+     */
+    protected $templateDirectoriesSealed = false;
+    
     /**
      * @var string
      */
     protected $templateName;
-
+    
     /**
      * @var string
      */
@@ -43,7 +48,12 @@ abstract class BaseBuilder implements BuilderInterface
     /**
      * @var Boolean
      */
-    protected $mustOverwriteIfExists = false;
+    private $mustOverwriteIfExists = false;
+    
+    /**
+     * @var Boolean
+     */
+    protected $mustOverwriteIfExistsSealed = false;
 
     /**
      * @var array
@@ -97,7 +107,9 @@ abstract class BaseBuilder implements BuilderInterface
      */
     public function addTemplateDir($templateDir)
     {
-        $this->templateDirectories[$templateDir] = $templateDir;
+    	if (!$this->templateDirectoriesSealed) {
+            $this->templateDirectories[$templateDir] = $templateDir;
+    	}
     }
 
     /**
@@ -105,7 +117,9 @@ abstract class BaseBuilder implements BuilderInterface
      */
     public function setTemplateDirs(array $templateDirs)
     {
-        $this->templateDirectories = $templateDirs;
+    	if (!$this->templateDirectoriesSealed) {
+            $this->templateDirectories = $templateDirs;
+    	}
     }
 
     /**
@@ -114,6 +128,31 @@ abstract class BaseBuilder implements BuilderInterface
     public function getTemplateDirs()
     {
         return $this->templateDirectories;
+    }
+    
+    /**
+     * Seal templateDirs property, so it is protected from overwriting
+     */
+    public function sealTemplateDirs()
+    {
+    	$this->templateDirectoriesSealed = true;
+    }
+    
+    /**
+     * Unseal the templateDirs property, so it can be overwritten again
+     */
+    public function unsealTemplateDirs()
+    {
+    	$this->templateDirectoriesSealed = false;
+    }
+    
+    /**
+     * Returns whether the templateDirs property is sealed
+     * @return boolean
+     */
+    public function isTemplateDirsSealed()
+    {
+    	return $this->templateDirectoriesSealed;
     }
 
     /**
@@ -192,7 +231,35 @@ abstract class BaseBuilder implements BuilderInterface
      */
     public function setMustOverwriteIfExists($status = true)
     {
-        $this->mustOverwriteIfExists = $status;
+    	if (!$this->mustOverwriteIfExistsSealed) {
+            $this->mustOverwriteIfExists = $status;
+    	}
+    }
+    
+    /**
+     * Seal the mustOverwriteIfExists property, so it is protected from overwriting
+     */
+    public function sealMustOverwriteIfExists()
+    {
+    	$this->mustOverwriteIfExistsSealed = true;	
+    }
+    
+    /**
+     * Unseal the mustOverwriteIfExists property, so it can be overwritten again
+     */
+    public function unsealMustOverwriteIfExists()
+    {
+    	$this->mustOverwriteIfExistsSealed = false;
+    }
+    
+    /**
+     * Returns whether the mustOverwriteIfExists property is sealed
+     * 
+     * @return boolean
+     */
+    public function isMustOverwriteIfExistsSealed()
+    {
+    	return $this->mustOverwriteIfExistsSealed;
     }
 
     /**
