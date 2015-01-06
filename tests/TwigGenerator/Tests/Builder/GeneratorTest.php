@@ -11,7 +11,7 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $builder = new DemoBuilder();
         $builder->setVariables(array('foo' => 'bar'));
-        
+
         $generator = new Generator();
         $generator->setVariables(array('foo' => 'common bar', 'baz' => 'common baz' ));
         $generator->addBuilder($builder);
@@ -24,8 +24,8 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $builder = new DemoBuilder();
         $builder->setVariables(array('foo' => 'bar'));
-        
-        $generator = new Generator();        
+
+        $generator = new Generator();
         $generator->addBuilder($builder);
 
         $this->assertEquals('bar', $builder->getVariable('foo'), 'Expected builder variable');
@@ -33,10 +33,10 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testAddBuilderOnlyGeneratorCommonVariables()
     {
-        $builder1 = new DemoBuilder();        
-        $builder2 = new DemoBuilder();        
-        
-        $generator = new Generator();        
+        $builder1 = new DemoBuilder();
+        $builder2 = new DemoBuilder();
+
+        $generator = new Generator();
         $generator->setVariables(array('foo' => 'common foo'));
         $generator->addBuilder($builder1);
         $generator->addBuilder($builder2);
@@ -49,10 +49,10 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $builder = new DemoBuilder();
 
-        $generator = new Generator();        
+        $generator = new Generator();
         $generator->addBuilder($builder);
         $generator->setVariables(array('foo' => 'bar'));
-        
+
         $this->assertNull($builder->getVariable('foo'), ' If addBuilder is called before setVariables then common builder variables will be skipped');
-    }    
+    }
 }
