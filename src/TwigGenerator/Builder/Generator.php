@@ -51,8 +51,8 @@ class Generator
 
     /**
      * Init a new generator and automatically define the base of temp directory.
-     * 
-     * @param string $baseTempDir    Existing base directory for temporary template files
+     *
+     * @param string $baseTempDir Existing base directory for temporary template files
      */
     public function __construct($baseTempDir = null)
     {
@@ -101,7 +101,7 @@ class Generator
     }
 
     /**
-     * @return string   The temporary directory.
+     * @return string The temporary directory.
      */
     public function getTempDir()
     {
@@ -109,7 +109,7 @@ class Generator
     }
 
     /**
-     * @return array    The list of builders.
+     * @return array The list of builders.
      */
     public function getBuilders()
     {
@@ -119,16 +119,16 @@ class Generator
     /**
      * Add a builder.
      *
-     * @param \TwigGenerator\Builder\BuilderInterface $builder  A builder.
+     * @param \TwigGenerator\Builder\BuilderInterface $builder A builder.
      *
-     * @return \TwigGenerator\Builder\BuilderInterface  The builder
+     * @return \TwigGenerator\Builder\BuilderInterface The builder
      */
     public function addBuilder(BuilderInterface $builder)
     {
         $builder->setGenerator($this);
         $builder->setTemplateDirs($this->templateDirectories);
         $builder->setMustOverwriteIfExists($this->mustOverwriteIfExists);
-        $builder->setVariables(array_merge($this->variables, $builder->getVariables()));   
+        $builder->setVariables(array_merge($this->variables, $builder->getVariables()));
 
         $this->builders[$builder->getSimpleClassName()] = $builder;
 
@@ -138,7 +138,7 @@ class Generator
     /**
      * Add an array of variables to pass to builders.
      *
-     * @param array $variables  A set of variables.
+     * @param array $variables A set of variables.
      */
     public function setVariables(array $variables = array())
     {
@@ -148,7 +148,7 @@ class Generator
     /**
      * Generate and write classes to disk.
      *
-     * @param string $outputDirectory   An output directory.
+     * @param string $outputDirectory An output directory.
      */
     public function writeOnDisk($outputDirectory)
     {
@@ -160,7 +160,7 @@ class Generator
     /**
      * Remove a directory.
      *
-     * @param string $target    A directory.
+     * @param string $target A directory.
      */
     private function removeDir($target)
     {
