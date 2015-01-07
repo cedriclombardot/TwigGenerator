@@ -130,7 +130,7 @@ class Generator
         $builder->setMustOverwriteIfExists($this->mustOverwriteIfExists);
         $builder->setVariables(array_merge($this->variables, $builder->getVariables()));
 
-        $this->builders[$builder->getSimpleClassName()] = $builder;
+        $this->builders[] = $builder;
 
         return $builder;
     }
