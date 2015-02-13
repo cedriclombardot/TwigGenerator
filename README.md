@@ -4,13 +4,8 @@ TwigGenerator is a PHP code generator based on the [Twig](https://github.com/fab
 
 ## Installation
 
-Checkout this GitHub repository and setup the composer dependencies (Twig and Symfony ClassLoader):
-
-```
-git clone https://github.com/cedriclombardot/TwigGenerator.git
-cd TwigGenerator
-wget -nc http://getcomposer.org/composer.phar
-php composer.phar install
+```bash
+$ php composer.phar create-project cedriclombardot/twig-generator
 ```
 
 ## Usage
@@ -88,7 +83,7 @@ $generator->setTemplateDirs(array(
 	__DIR__.'/templates',
 ));
 
-// allways regenerate classes even if they exist -> no cache
+// always regenerate classes even if they exist -> no cache
 $generator->setMustOverwriteIfExists(true);
 
 // set common variables
