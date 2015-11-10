@@ -99,6 +99,8 @@ class BaseBuilderTest extends \PHPUnit_Framework_TestCase
                           ->disableOriginalConstructor()
                           ->getMock();
 
+        $generator->expects($this->any())->method('getTempDir')->will($this->returnValue(false));
+
         $builder->setGenerator($generator);
         $builder->setMustOverwriteIfExists(true);
         $builder->setOutputName('test.php');
