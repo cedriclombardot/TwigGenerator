@@ -1,9 +1,30 @@
 language: php
-php: 5.3
-before_script:
-  - wget http://getcomposer.org/composer.phar
-  - php composer.phar install
+
+php:
+    - 5.3
+    - 5.4
+    - 5.5
+    - 5.6
+    - 7.0
+    - hhvm
+
+matrix:
+    include:
+        - php: 5.6
+          env: TWIG_VERSION='2.0.*@dev'
+
+sudo: false
+
+cache:
+    directories:
+        - $HOME/.composer/cache
+
+before_install: if [ "$TWIG_VERSION" != "" ]; then composer require --no-update twig/twig:$TWIG_VERSION; fi
+
+install: composer update --prefer-dist
+
 script: phpunit
+
 notifications:
   email:
     - cedric.lombardot@gmail.com
