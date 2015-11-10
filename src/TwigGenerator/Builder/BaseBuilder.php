@@ -64,8 +64,7 @@ abstract class BaseBuilder implements BuilderInterface
     /**
      * @var array
      */
-    protected $twigExtensions = array(
-    );
+    protected $twigExtensions = array();
 
     /**
      * Constructor
@@ -281,12 +280,25 @@ abstract class BaseBuilder implements BuilderInterface
     public function addTwigFilters(\Twig_Environment $twig)
     {
         foreach ($this->twigFilters as $twigFilter) {
+            if (!is_callable($twigFilter)) {
+                throw new \InvalidArgumentException(sprintf('Twig filters should be callable, filter "%s" of "%s" is not.', print_r($twigFilter, true), get_class($this)));
+            }
+
             if (($pos = strpos($twigFilter, ':')) !== false) {
                 $twigFilterName = substr($twigFilter, $pos + 2);
+            } elseif (is_array($twigFilter)) {
+                $twigFilterName = $twigFilter[1];
             } else {
                 $twigFilterName = $twigFilter;
             }
-            $twig->addFilter($twigFilterName, new \Twig_Filter_Function($twigFilter));
+
+            if (class_exists('\Twig_SimpleFilter')) {
+                // Twig 1.12+ API
+                $twig->addFilter(new \Twig_SimpleFilter($twigFilterName, $twigFilter));
+            } else {
+                // Twig <1.12 API
+                $twig->addFilter($twigFilterName, new \Twig_Filter_Function($twigFilterName, $twigFilter));
+            }
         }
     }
 
